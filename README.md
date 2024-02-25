@@ -64,3 +64,15 @@ https://github.com/openai-php/client/blob/main/src/Resources/Chat.php
 
 https://platform.openai.com/docs/api-reference/chat/create
 
+
+************************************************************
+
+		How to USE ?
+************************************************************
+- Put rpy (translate file) in C:\xampp\htdocs\renpy_auto_translate\file_translate
+- Lauch in firefox localhost/renpy_auto_translate/1-renpy_translation_read_rpy.php
+- Follow the link step2 (wait a few moment, external api call on openai)
+- Follow the link to step3 (rewrite rpy file in  C:\xampp\htdocs\renpy_auto_translate\file_to_translate)
+
+- Try always with test file before !
+
