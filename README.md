@@ -45,16 +45,16 @@ Exemple xampp
 
 After, lauch in line command (in c:\xampp\httpdocs\)
 
-composer require openai-php/client
+- composer require openai-php/client
 
-composer require guzzlehttp/guzzle
+- composer require guzzlehttp/guzzle
 
-composer require openai-php/client
+- composer require openai-php/client
 
 
 Download zip : https://github.com/openai-php/client
 
-Add credit (with credit card on https://platform.openai.com/)
+Add credit on openai (with credit card on https://platform.openai.com/)
 
 You can test with : http://localhost/openai.php 
 
