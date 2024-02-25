@@ -8,8 +8,9 @@ Step 2 : For each line to translate, we send a prompt + the text to translate, w
 Step 3 : Rewrite rpy with translation.
 
 /************************************************************
-				CREATE BY SecretGame18
+		CREATE BY SecretGame18
 /************************************************************
+
 NO COMMERCIAL USE.
 You can use this script, modify etc if you "show the creator".
 You can't use it for win money.
@@ -22,7 +23,7 @@ Patreon : https://www.patreon.com/lucie_adult_game
 If you use it or like it, please support me on Patreon
 
 /************************************************************
-						How to install ?
+		How to install ?
 /************************************************************
 
 Create an account on OpenAI Playground. Obtain a Key.
