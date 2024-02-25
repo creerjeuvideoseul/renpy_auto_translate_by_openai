@@ -1,0 +1,2 @@
+# renpy_auto_translate_by_openai
+renpy_auto_translate_by_openai
