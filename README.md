@@ -2,8 +2,11 @@ In PHP / XAMPP / OPENAI Playground - Universal Translator.
 
 In 3 steps :
 Step 1 : the script extract data from RPY. (stock in bdd).
+
 Step 2 : For each line to translate, we send a prompt + the text to translate, we get the answer, stock in cache
+
 Step 3 : Rewrite rpy with translation.
+
 
 /************************************************************
 				CREATE BY SecretGame18
