@@ -6,10 +6,10 @@ In 3 steps :
 - Step 3 : Rewrite rpy with translation.
 
 
-/************************************************************
+************************************************************
 
 				CREATE BY SecretGame18
-/************************************************************
+************************************************************
 
 NO COMMERCIAL USE.
 You can use this script, modify etc if you "show the creator".
@@ -24,10 +24,10 @@ Patreon : https://www.patreon.com/lucie_adult_game
 
 If you use it or like it, please support me on Patreon
 
-/************************************************************
+************************************************************
 
-						How to install ?
-/************************************************************
+		How to install ?
+************************************************************
 
 Create an account on OpenAI Playground. Obtain a Key.
 
@@ -61,6 +61,6 @@ You can test with : http://localhost/openai.php
 Documentation about api php and openai :
 
 https://github.com/openai-php/client/blob/main/src/Resources/Chat.php
+
 https://platform.openai.com/docs/api-reference/chat/create
 
-***********************************************************/
