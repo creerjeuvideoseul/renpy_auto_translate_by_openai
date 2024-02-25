@@ -1,10 +1,9 @@
 In PHP / XAMPP / OPENAI Playground - Universal Translator.
 
 In 3 steps :
-
-Step 1 : the script extract data from RPY. (stock in bdd).
-Step 2 : For each line to translate, we send a prompt + the text to translate, we get the answer, stock in cache
-Step 3 : Rewrite rpy with translation.
+- Step 1 : the script extract data from RPY. (stock in bdd).
+- Step 2 : For each line to translate, we send a prompt + the text to translate, we get the answer, stock in cache
+- Step 3 : Rewrite rpy with translation.
 
 
 /************************************************************
@@ -36,12 +35,13 @@ Intall webserver with php >8.1
 
 Exemple xampp
 
-Open httpd.conf, ajouter SetEnv OPENAI_API_KEY sk-**********************************
+- Open httpd.conf, ajouter SetEnv OPENAI_API_KEY sk-**********************************
 
+- Charge SQL file in database. 
 
-Install composer for add plugin : https://getcomposer.org/download/
+- Install composer for add plugin : https://getcomposer.org/download/
 
-Lauch and install composer-setup.exe
+- Lauch and install composer-setup.exe
 
 After, lauch in line command (in c:\xampp\httpdocs\)
 
