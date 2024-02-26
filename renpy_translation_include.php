@@ -121,7 +121,7 @@ function traductionByAPI($textToTranslate, $langueSRC, $langueTarget, $idTTLine)
 			'model' => 'gpt-3.5-turbo',
 			'messages' => [
 				['role' => 'user', 'content' => $promptOPENAI,
-				['role' => 'user', 'content' => $textToTranslate],
+				'role' => 'user', 'content' => $textToTranslate],
 			],
 
 			#   'temperature' => 0,  'max_tokens' => 10,
