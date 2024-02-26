@@ -5,6 +5,8 @@ In 3 steps :
 - Step 2 : For each line to translate, we send a prompt + the text to translate, we get the answer, stock in cache
 - Step 3 : Rewrite rpy with translation.
 
+The script handles interrupts in the event of api problems. It will pick up where it left off (with an F5).
+The script uses a CACHE system to avoid translating the same sentence twice, from one file to another.
 
 ************************************************************
 
