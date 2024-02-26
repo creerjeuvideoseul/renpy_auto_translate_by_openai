@@ -67,6 +67,9 @@ $idUSER = 1; // If you want a compartiment on bdd.
 // Choose a destination language, here, englis, ... or chinise etc...
 $promptOPENAI = "I will give you sentence. Translate it in english. The main thing is to respect the original text as well as the code. Ne traduisez pas les variables entre crocher [] and you must preserve them and never translate them, but of course you will translate the rest of the sentence.";
 
+$langueSRC = "FR"; // For database and cache
+$langueTarget = "CH"; // For database and cache
+
 ## IF YOU HAVE THIS ERROR MESSAGE,
 ## error setting certificate verify locations:
 ## CAfile: C:\wamp64\www/cacert.pem
@@ -120,8 +123,8 @@ function traductionByAPI($textToTranslate, $langueSRC, $langueTarget, $idTTLine)
 		$result = $client->chat()->create([
 			'model' => 'gpt-3.5-turbo',
 			'messages' => [
-				['role' => 'user', 'content' => $promptOPENAI,
-				'role' => 'user', 'content' => $textToTranslate],
+				['role' => 'user', 'content' => $promptOPENAI],
+				['role' => 'user', 'content' => $textToTranslate],
 			],
 
 			#   'temperature' => 0,  'max_tokens' => 10,

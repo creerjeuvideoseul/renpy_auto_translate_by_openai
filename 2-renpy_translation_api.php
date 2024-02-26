@@ -82,7 +82,7 @@ if( is_dir($dirParse) ){
 					echo "=><strong>CLEAN</strong> : @".$texteSourceClean."@<br>";
 
 					// On traduit
-					$response = traductionByAPI(trim($texteSourceClean), $row['id_tt']);
+					$response = traductionByAPI(trim($texteSourceClean), $langueSRC, $langueTarget, $row['id_tt']);
 					
 					if ($response !== false)
 					{
