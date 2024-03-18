@@ -174,7 +174,7 @@ if( is_dir($dirParse) ){
 						if (preg_match("@^    ([a-zA-Z0-9\_\.]*) \"\" @", $targetText))
 						{ 
 							$targetText = preg_replace("@ \"\" (.*)@", " \"\"", $targetText); // On remplace tout ce qui est après "", par rien.
-							if (isset($_GET['debug'])) echo "CAS 1 : LINE 4 : remove ID/interact : ".htmlentities($targetText)."<br>";
+							echo "CAS 1 : LINE 4 : remove ID/interact : ".htmlentities($targetText)."<br>";
 						}
 						
 

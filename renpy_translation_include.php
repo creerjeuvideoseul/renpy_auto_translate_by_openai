@@ -60,15 +60,12 @@ $dirParse = "file_to_translate\\";						  // Where are rpy file to translate ?
 $folderTarget = "..\\file_translate\\";					  // Where are the destination ?
 
 // Check langage in script / Security
-$langueCheck = "english"; // Control about langage in script (ex : translate english charles_9f0aefa7) 
+$langueCheck = "chinese"; // Control about langage in script (ex : translate english charles_9f0aefa7) 
 $idUSER = 1; // If you want a compartiment on bdd.
 
 // What do I have to do openai with the lines of text you're going to send?
 // Choose a destination language, here, englis, ... or chinise etc...
-$promptOPENAI = "I will give you sentence. Translate it in english. The main thing is to respect the original text as well as the code. Ne traduisez pas les variables entre crocher [] and you must preserve them and never translate them, but of course you will translate the rest of the sentence.";
-
-$langueSRC = "FR"; // For database and cache
-$langueTarget = "CH"; // For database and cache
+$promptOPENAI = "I will give you sentence in french. Translate it in traditionnal chinese. The main thing is to respect the original text as well as the code. Do not translate variables enclosed in brackets []. You must preserve them and never translate them, but of course you will translate the rest of the sentence. Answer ONLY with a translation, if you can't, answer 'ERROR' .";
 
 ## IF YOU HAVE THIS ERROR MESSAGE,
 ## error setting certificate verify locations:
@@ -77,7 +74,8 @@ $langueTarget = "CH"; // For database and cache
 ## install : http://drive.google.com/file/d/1Mp37eBSF9l-HbByB4eN776iKyyq2Fu3b/view?usp=sharing (it's my certificate)
 
 ##################### END PARAMETERS ##################################
-
+$langueSRC = "FR";
+$langueTarget = "CH";
 
 # NOT USE IN DEFAULT : 
 
@@ -117,15 +115,15 @@ function traductionByAPI($textToTranslate, $langueSRC, $langueTarget, $idTTLine)
 	}
 
 	print "<b>Send to OPENAI PLayground</b> : ".$textToTranslate."<br>";
-
+	
 	if ($textToTranslate != "" and $promptOPENAI) {
 		# différencier premier tour, et la suite.
 		$result = $client->chat()->create([
-			'model' => 'gpt-3.5-turbo',
+			'model' => 'gpt-4',
 			'messages' => [
-				['role' => 'user', 'content' => $promptOPENAI],
+				['role' => 'system', 'content' => $promptOPENAI],
 				['role' => 'user', 'content' => $textToTranslate],
-			],
+			]
 
 			#   'temperature' => 0,  'max_tokens' => 10,
 		]);

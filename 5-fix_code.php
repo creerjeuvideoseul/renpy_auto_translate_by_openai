@@ -112,7 +112,7 @@ if( is_dir($dirParse) ){
 					// Si c'est la ligne de début du groupe d'une traduction :
 					if (preg_match("@^# game/@", $buffer)) 
 					{
-						if (isset($_GET['debug'])) echo "CAS 1 : LINE 1 : ".htmlentities($buffer)."<br>";
+						//if (isset($_GET['debug'])) echo "CAS 1 : LINE 1 : ".htmlentities($buffer)."<br>";
 						$idUniqueInProgress = $buffer; // # game/screens.rpy:321, on stock la signature
 						$cptLineGroupe = 0;
 						$langue = "";
@@ -142,7 +142,7 @@ if( is_dir($dirParse) ){
 
 						$labelUnique = $tmp['3']; // Label unique ----------- exemple : day_history_1_729787bd
 						$cptLineGroupe ++; // ligne 2 faite.
-						if (isset($_GET['debug'])) echo "CAS 1 : LINE 2 : ".htmlentities($langue)." ".htmlentities($labelUnique)."OK<br>";
+						//if (isset($_GET['debug'])) echo "CAS 1 : LINE 2 : ".htmlentities($langue)." ".htmlentities($labelUnique)."OK<br>";
 						unset($tmp);
 					}
 
@@ -150,7 +150,7 @@ if( is_dir($dirParse) ){
 					// le old ou le # t 
 					if ($cas == 1 && $cptLineGroupe == 2 && preg_match("@^    # @", $buffer, $tmp)) 
 					{
-						if (isset($_GET['debug'])) echo "CAS 1 : LINE 3 : Ancienne valeur # : ".htmlentities($buffer)."<br>";
+						//if (isset($_GET['debug'])) echo "CAS 1 : LINE 3 : Ancienne valeur # : ".htmlentities($buffer)."<br>";
 
 						// Contient le texte source.
 						// # t "J'ai aussi ressenti un moment fort hier, et je pense qu'on devrait aller plus loin!"
@@ -163,7 +163,7 @@ if( is_dir($dirParse) ){
 					// (4espaces) t "" [a-zA-Z0-9\_\.]*
 					if ($cas == 1 && $cptLineGroupe == 3 && (preg_match("@^    (.*) \"\"@", $buffer) OR preg_match("@^    \"\"@", $buffer))) 
 					{
-						if (isset($_GET['debug'])) echo "CAS 1 : LINE 4 : Traduction : ".htmlentities($buffer)."<br>";
+						//if (isset($_GET['debug'])) echo "CAS 1 : LINE 4 : Traduction : ".htmlentities($buffer)."<br>";
 						$cptLineGroupe = 0;
 						$targetText = $buffer;
 
@@ -174,7 +174,7 @@ if( is_dir($dirParse) ){
 						if (preg_match("@^    ([a-zA-Z0-9\_\.]*) \"\" @", $targetText))
 						{ 
 							$targetText = preg_replace("@ \"\" (.*)@", " \"\"", $targetText); // On remplace tout ce qui est après "", par rien.
-							if (isset($_GET['debug'])) echo "CAS 1 : LINE 4 : remove ID/interact : ".htmlentities($targetText)."<br>";
+							//if (isset($_GET['debug'])) echo "CAS 1 : LINE 4 : remove ID/interact : ".htmlentities($targetText)."<br>";
 						}
 						
 
@@ -213,14 +213,14 @@ if( is_dir($dirParse) ){
 						$cptLineGroupe = 0; // ligne 2 faite.
 						$cptLineGroupe ++; // ligne 1 faite.
 						$cas = 2;
-						if (isset($_GET['debug'])) echo "CAS 2 : LINE 1 : ".htmlentities($langueCheck)." strings OK<br>";
+						//if (isset($_GET['debug'])) echo "CAS 2 : LINE 1 : ".htmlentities($langueCheck)." strings OK<br>";
 						unset($tmp);
 					}
 
 					// Si c'est la ligne de début du groupe d'une traduction :
 					if ($cas == 2 && $cptLineGroupe == 1 && preg_match("@^    # ([a-zA-Z0-9\_\.]{1,})/@", $buffer)) 
 					{
-						if (isset($_GET['debug'])) echo "CAS 2 : LINE 2 : ".htmlentities($buffer)."<br>";
+						//if (isset($_GET['debug'])) echo "CAS 2 : LINE 2 : ".htmlentities($buffer)."<br>";
 						$labelUnique = $buffer;// # game/screens.rpy:321 --------- Stock la signature
 						$cptLineGroupe ++; // ligne 1 faite.
 					}
@@ -228,7 +228,7 @@ if( is_dir($dirParse) ){
 					// on cherche la 3 eme ligne. le old ou le # t 
 					if ($cas == 2 && $cptLineGroupe == 2 && preg_match("@^    old \"@", $buffer))
 					{
-						if (isset($_GET['debug'])) echo "CAS 2 : LINE 3 : Ancienne valeur  : ".htmlentities($buffer)."<br>";
+						//if (isset($_GET['debug'])) echo "CAS 2 : LINE 3 : Ancienne valeur  : ".htmlentities($buffer)."<br>";
 						//$SourceText = preg_replace("@^old \"@", "", substr(trim($buffer), 0, -1)); // on retire le " de fin et le old "
 						//if ($SourceText == "")
 						$SourceText = $buffer;
@@ -239,7 +239,7 @@ if( is_dir($dirParse) ){
 					// on cherche la 3 eme ligne. le old ou le # t 
 					if ($cas == 2 && $cptLineGroupe == 3 && preg_match("@^    new \"@", $buffer)) 
 					{
-						if (isset($_GET['debug'])) echo "CAS 2 : LINE 4 : La traduction  : ".htmlentities($buffer)."<br>";
+						//if (isset($_GET['debug'])) echo "CAS 2 : LINE 4 : La traduction  : ".htmlentities($buffer)."<br>";
 						// $targetText = preg_replace("@new \"@", "", substr(trim($buffer), 0, -1)); // on retire le " de fin et le new "
 //						if (trim($targetText) == "")
 						$targetText = $buffer;
@@ -322,17 +322,158 @@ if( is_dir($dirParse) ){
 	}
 }
 
-$text = "This is some text";
-$tokens = $tokenizer->encode($alltraduction); // $tokenizer->encodeInChunks($text, 5)
 
-//print_r($tokens);
 
-// $tokens = [1212,318,617,2420]
-$text = $tokenizer->decode($tokens);
-$numberOfTokens = $tokenizer->count($text);
+  
+$cptLine = 0;
+$cptLineGroupe = 0;
+$langue = "";
+$labelUnique = "";
+$tmp = array();
+$cas = 0;
+$targetFile = "";
+$SourceText = "";
+$TranslateText = "";
+$targetText = "";
+$targetFileData = false;
+$data = "";
+$cptLineTrad = 0;
 
-echo "<br><span style='font-size:45px;'>".$cptWord." words and ". $cptCharacteres." characteres.<br></span>";
-echo "<h2>Cout estimé par tokenizer : numberOfTokens $numberOfTokens</h2><br>";
+$suffixe_file = ".rpy";
+$originLangage = "";
+
+echo "STEP 3 : Rewrite rpy file completed in repository /fill/<br>";
+
+$baliseCheck = array(
+	"{t}"=>"{/t}",
+	"{c}"=>"{/c}",
+	"{l}"=>"{/l}",
+	"{ce}"=>"{/ce}",
+	"{pa}"=>"{/pa}",
+	"{z}"=>"{/z}",
+	"{jo}"=>"{/jo}",
+	"{di}"=>"{/di}"
+
+	# ADD YOUR BALISE HERE IF YOU HAVE
+);
+
+
+// Si $chemin est un dossier => on appelle la fonction explorer() pour chaque élément (fichier ou dossier) du dossier$chemin
+if( is_dir($dirParse) ){
+	
+	if (!is_dir($dirServer.$folderTarget) && !is_dir($folderTarget))
+		mkdir($folderTarget);
+
+	$me = opendir($dirParse); 
+
+	while( $fileTranslate = readdir($me) ){
+
+		// Quel fichier on doit traité ? tout ceux présent dans le rep traité en 1.
+		if (substr($fileTranslate, -3) == "rpy")
+		{
+			$cptLineTrad = 0;
+			$cptLine = 0;
+			$originLangage = "";
+
+			echo "<br><b>On traite : ".htmlentities($dirParse.$fileTranslate)."</b><br>";
+
+			$fileTranslateMysql = $mysqli->real_escape_string($fileTranslate);
+			$fileTarget = $dirParse.$folderTarget.substr($fileTranslate, 0, -4).$suffixe_file;
+			echo "<h2>Fichier de destination : ".htmlentities($fileTarget)."</h2>";
+			if (file_exists($fileTarget))
+				unlink($fileTarget);
+			$targetFileData = fopen($fileTarget, 'a'); // On ouvre le fichier de destination
+
+			// On va chercher toutes les lignes en BDD, if etat = 0, alors on touche à rien, on copie tel quel.
+			// Si etat = 2, y'a eut une trad, on va chercher une autre colonne, la ou cela a été traduit.
+
+			$sql = "SELECT * FROM translation_text WHERE tt_file = '".$fileTranslateMysql."' AND ta_id = '".$idUSER."' ORDER BY tt_line ASC ";
+			$result = $mysqli->query($sql);
+			if (isset($_GET['debug']))  echo $sql."<br><br>";
+			while ($row = $result->fetch_assoc()) 
+			{
+
+				$cptLine++;
+				$data = $row['tt_data'];
+
+				# game/script_part1.rpy:19
+				if (preg_match("#^translate #", $row['tt_data']))
+				{
+					$originLangage = "";
+				}
+				elseif (preg_match("&^# game/&", $row['tt_data']))
+				{
+
+				}
+				elseif (preg_match("&^    # &", $row['tt_data']))
+				{
+					$originLangage = $row['tt_data']; // Langue source.
+				}
+				elseif (trim($row['tt_data']) != "")
+				{
+		  			// SI cela A ETE TRADUIT :  
+					$data = stripslashes($row['tt_data']);
+					$dataSave = $data;
+					$cptLineTrad ++;
+					 
+					foreach($baliseCheck as $balise => $baliseFin)
+					{   
+						if (preg_match("#\"".$balise."#" , $originLangage)) // Si la source contient une balise alors on vérifie que la traduction aussi :
+						{
+							if (!preg_match('#\"'.$balise.'#', $data)) # si NE commence pas par {mc}
+							{ 
+								echo $row['tt_line']." ".$cptLineTrad." ".$originLangage." => " .$data."<br>";
+								echo "Original contient une balise $balise <br>"; 
+
+								$data = preg_replace('#^    ([a-zA-Z0-9-_]*) "#', '    \1 "'.$balise.'*', $data);
+								$data = "    ".preg_replace('#"$#', '*'.$baliseFin.'"', trim($data));
+								$data = preg_replace('#\}\*\*#', '}*', $data);
+								$data = preg_replace('#\*\*\{#', '*{', $data);
+								echo "Version corrigé : |".htmlentities($data)."|<br>";
+							}
+
+				 
+						/*	$texteSourceBalise = preg_replace('#^'.$balise.'\*\*#', $balise.'* ', $texteSourceBalise);
+							$texteSourceBalise = preg_replace('#\*\*'.$baliseFin.'$#', '*'.$baliseFin, $texteSourceBalise);
+							$texteSourceBalise = preg_replace('#'.$balise.'\*'.$baliseFin.'$#', '*'.$baliseFin, $texteSourceBalise);
+							
+							$texteSourceBalise = preg_replace('#^'.$balise.'\*\*#', $balise.'* ', $texteSourceBalise);
+
+							$texteSourceBalise = preg_replace('#\*{/mc}$#', '{/mc}', $texteSourceBalise);
+
+
+							if ($texteSourceBalise != $originLangage) {
+								if (isset($_GET['debug'])) echo "DEBUG==".$texteSourceBalise."<br>".$chaineARemplir."<br>";
+								// On remplit la chaine en remplissant le contenu
+								$data = preg_replace("@TXTARPLUNIQUED789@", $texteSourceBalise, $chaineARemplir);
+								if (isset($_GET['debug'])) echo "REPLACE balise<br>$dataSave<br> PAR <br>$data<br><br>";
+							}*/
+						}
+					}
+
+					if (preg_match("#\[([a-zA-Z0-9-_]*)\]#", $data)) // Si la source contient une balise alors on vérifie que la traduction aussi :
+					{
+						echo "<strong>ATTENTION BALISE</strong> [toto] détecter : ".$data."<br>";
+					}
+				}
+				fputs($targetFileData, rtrim($data)."\n");
+
+ 
+			}
+			
+
+			echo "<h3>".$cptLine." lines wrotes dont $cptLineTrad lines translates</h3>";
+			fclose($targetFileData);
+		
+			set_time_limit(0);
+			
+  		}
+	}
+}
+
+ 
+
+
 
 $mysqli->close(); 
   

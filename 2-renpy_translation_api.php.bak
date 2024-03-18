@@ -76,14 +76,15 @@ if( is_dir($dirParse) ){
  					else
 						$texteSourceClean = preg_replace("@^# \"@", "", trim($texteSource));
 
-					if (substr($texteSourceClean, -1) == '"')
-						$texteSourceClean = substr(trim($texteSourceClean), 0, -1);
-
 					if ($texteSourceClean == "")
 					{
 						if ($texteSource && preg_match("@^# ([a-zA-Z0-9\_\.]{1,}) \"@", trim($texteSource)))
 							$texteSourceClean = preg_replace("@^# ([a-zA-Z0-9\_\.]{1,}) \"@", "", trim($texteSource));
 					}
+
+
+					if (substr($texteSourceClean, -1) == '"')
+						$texteSourceClean = substr(trim($texteSourceClean), 0, -1);
 
 					echo "=><strong>CLEAN</strong> : @".$texteSourceClean."@<br>";
 
